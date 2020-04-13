@@ -35,10 +35,10 @@ class DataController {
 
   
       inputData.periodType = periodTypeData;
-      inputData.timeToElapse = timeToElapseData;
-      inputData.reportedCases = reportedCasesData;
-      inputData.population = populationData;
-      inputData.totalHospitalBeds = totalHospitalBedsData;
+      inputData.timeToElapse = parseInt(timeToElapseData);
+      inputData.reportedCases = parseInt(reportedCasesData);
+      inputData.population = parseInt(populationData;
+      inputData.totalHospitalBeds = parseInt(totalHospitalBedsData);
 
       const estimate = estimator(inputData)
 
