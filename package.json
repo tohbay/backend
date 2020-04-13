@@ -1,0 +1,30 @@
+{
+  "name": "backendserver",
+  "version": "1.0.0",
+  "description": "covid-19 Estimator API",
+  "main": "index.js",
+  "repository": "https://github.com/tobechukwuobitube/covid-19-estimator",
+  "author": "Tobechukwu Obitube",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "nodemon": "^2.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/index.js",
+    "build": "babel src --out-dir build",
+    "start": "babel-node build/index.js",
+    "lint": "eslint ./src/"
+  },
+  "dependencies": {
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  }
+}
