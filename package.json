@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir build",
-    "start": "babel-node build/index.js",
+    "start": "node build/index.js",
     "lint": "eslint ./src/"
   },
   "dependencies": {
