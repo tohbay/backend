@@ -1,5 +1,4 @@
-import records from "../db/data";
-import { inputData } from "../db/utils/constants";
+import records from '../db/data';
 
 class DataModel {
   static getAll() {
@@ -14,7 +13,7 @@ class DataModel {
       timeToElapse,
       reportedCases,
       population,
-      totalHospitalBeds,
+      totalHospitalBeds
     } = dataInput.data;
     const newDataInput = {
       region,
@@ -24,7 +23,7 @@ class DataModel {
       population,
       totalHospitalBeds,
       impact,
-      severeImpact,
+      severeImpact
     };
 
     records.push(newDataInput);

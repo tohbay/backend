@@ -1,57 +1,52 @@
-import records from '../db/data';
+import xml from 'xml2js';
+import fs from 'fs';
+import path from 'path';
 import DataModel from '../models/data';
-import estimator from '../db/utils/estimator'
-import { inputData } from '../db/utils/constants'
+import estimator from '../db/utils/estimator';
 
 class DataController {
   static getAll(req, res) {
     const allData = DataModel.getAll();
     return res.status(200).json({
-      data: allData
+      allData
     });
-    // return data;
   }
 
   static create(req, res) {
-    const {
-      periodTypeData,
-      timeToElapseData,
-      reportedCasesData,
-      populationData,
-      totalHospitalBedsData
-    } = req.body;
+    const estimate = estimator(req.body);
 
-    if (
-      !periodTypeData ||
-      !timeToElapseData ||
-      !reportedCasesData ||
-      !populationData ||
-      !totalHospitalBedsData
-    ) {
-      return res.status(400).json({
-        error: 'All fields are required'
-      });
-    }
-
-  
-      inputData.periodType = periodTypeData;
-      inputData.timeToElapse = parseInt(timeToElapseData);
-      inputData.reportedCases = parseInt(reportedCasesData);
-      inputData.population = parseInt(populationData;
-      inputData.totalHospitalBeds = parseInt(totalHospitalBedsData);
-
-      const estimate = estimator(inputData)
-
-      const { region, periodType,
-        timeToElapse,
-        reportedCases,
-        population,
-        totalHospitalBeds, impact, severeImpact } = estimate 
+    const { data, impact, severeImpact } = estimate;
 
     DataModel.create(estimate);
 
-    return res.status(201).json({
-      data: estimate
+    return res.status(200).json({
+      data,
+      impact,
+      severeImpact
+    });
+  }
+
+  static createXml(req, res) {
+    const estimate = estimator(req.body);
+
+    const xmlBuilder = new xml.Builder();
+
+    res.set('Content-Type', 'application/json');
+    res.set('Content-Type', 'application/xml');
+    return res.status(200).send(xmlBuilder.buildObject(estimate));
+  }
+
+  static getLogs(req, res) {
+    const retrievedData = fs.readFileSync('request_logs.txt', 'utf8');
+    res.setHeader('Content-Type', 'text/plain');
+    res.status(200).send(retrievedData);
+  }
+
+  static deleteLogs(req, res) {
+    const filePath = path.join('request_logs.txt');
+    fs.unlinkSync(filePath);
+    res.status(201).send({
+      message: 'Logs were successfully deleted'
     });
   }
 }

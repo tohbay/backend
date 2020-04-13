@@ -9,20 +9,20 @@ export const impactCurrentlyInfected = (data) => data.reportedCases * impactNumb
 
 export const severeCurrentlyInfected = (data) => data.reportedCases * severeImpactNumber;
 
-export const normalizePeriodInDays = (periodType, days) => {
+export const normalizePeriodInDays = (periodType, timeToElapse) => {
   switch (periodType) {
     case 'months':
-      return days * daysMonth;
+      return timeToElapse * daysMonth;
     case 'weeks':
-      return days * daysWeek;
+      return timeToElapse * daysWeek;
     default:
-      return days;
+      return timeToElapse;
   }
 };
 
-export const infectionsPerPeriod = (currentlyInfected, period) => {
-  const factor = Math.trunc(period / 3);
-  return currentlyInfected * 2 ** factor;
+export const infectionsPerPeriod = (currentlyInfected, timeToElapse) => {
+  const factor = Math.trunc(timeToElapse / 3);
+  return currentlyInfected * Math.trunc(2 ** factor);
 };
 
 export const percentageSeverity = (totalCases, percentage) => {
