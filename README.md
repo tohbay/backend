@@ -1,5 +1,5 @@
 # Covid-19 Estimator API
-A novelty COVID-19 infections estimator following
+A novelty COVID-19 infections estimator
 
 
 ### Technologies Used
